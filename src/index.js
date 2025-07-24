@@ -32,6 +32,9 @@ const calculator = {
     }
 }
 
+
+
+
 function caesarCipher(str, num) {
 
     const code_a = 97;
@@ -40,17 +43,29 @@ function caesarCipher(str, num) {
     const code_A = 65;
     const code_Z = 90;
 
-
+    num = num%26;
     return str.split('')
     .map((ch) => {
-        let code = ch.charCodeAt(0)
+        let code = ch.charCodeAt(0);
         if (code >= code_a && code <= code_z) {
+            code = code_a + (code + num - code_a + 26)%26;
             return String.fromCharCode(code);
         } else if (code >= code_A && code <= code_Z) {
-            
+            code = code_A + (code + num - code_A + 26)%26;
+            return String.fromCharCode(code);
         } else {
             return ch;
         }
     }).join('');
 }
-export { capitalize, reverseString, calculator, caesarCipher};
+
+function analyzeArray (arr) {
+    return {
+        average : () => arr.reduce((sum, curr) => {return sum + curr}, 0) / arr.length,
+        min : () => arr.reduce((min, val) => Math.min(min,val) , arr[0]),
+        length : () => arr.length,
+        max : () => arr.reduce((max, val) => Math.max(max, val), arr[0]),
+    }
+}
+
+export { capitalize, reverseString, calculator, caesarCipher, analyzeArray};
